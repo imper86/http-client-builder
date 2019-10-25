@@ -1,0 +1,30 @@
+{
+    "name": "imper86/http-client-builder",
+    "description": "Client builder for HTTPlug libs",
+    "keywords": ["httplug", "php-http"],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "imper",
+            "email": "me@imper.info"
+        }
+    ],
+    "require": {
+        "php": "^7.1",
+        "psr/http-factory": "^1.0",
+        "php-http/discovery": "^1.7",
+        "php-http/httplug": "^2.0",
+        "imper86/php-http-cache-plugin": "^1.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Imper86\\HttpClientBuilder\\": "src"
+        }
+    },
+    "require-dev": {
+        "php-http/guzzle6-adapter": "^2.0",
+        "guzzlehttp/psr7": "^1.6",
+        "http-interop/http-factory-guzzle": "^1.0"
+    }
+}
