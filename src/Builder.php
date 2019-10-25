@@ -15,7 +15,6 @@ use Http\Client\HttpClient;
 use Http\Discovery\HttpClientDiscovery;
 use Http\Discovery\Psr17FactoryDiscovery;
 use Psr\Cache\CacheItemPoolInterface;
-use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Http\Message\UriFactoryInterface;
@@ -27,7 +26,7 @@ class Builder implements BuilderInterface
      */
     private $httpClient;
     /**
-     * @var ClientInterface|null
+     * @var HttpClient|null
      */
     private $pluginClient;
     /**
@@ -68,7 +67,7 @@ class Builder implements BuilderInterface
         $this->uriFactory = $uriFactory ?: Psr17FactoryDiscovery::findUrlFactory();
     }
 
-    public function getHttpClient(): ClientInterface
+    public function getHttpClient(): HttpClient
     {
         if ($this->httpClientModified) {
             $this->httpClientModified = false;
@@ -83,6 +82,12 @@ class Builder implements BuilderInterface
         }
 
         return $this->pluginClient;
+    }
+
+    public function setHttpClient(HttpClient $httpClient): void
+    {
+        $this->httpClient = $httpClient;
+        $this->httpClientModified = true;
     }
 
     /**
