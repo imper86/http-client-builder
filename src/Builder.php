@@ -150,4 +150,20 @@ class Builder implements BuilderInterface
         $this->cachePlugin = null;
         $this->httpClientModified = true;
     }
+
+    public function hasPlugin(string $fqcn): bool
+    {
+        foreach ($this->plugins as $plugin) {
+            if ($plugin instanceof $fqcn) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public function hasCache(): bool
+    {
+        return null !== $this->cachePlugin;
+    }
 }

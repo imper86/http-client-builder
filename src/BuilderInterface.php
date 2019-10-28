@@ -76,4 +76,15 @@ interface BuilderInterface
      * Removes cache plugin
      */
     public function removeCache(): void;
+
+    /**
+     * @param string $fqcn
+     * @return bool
+     */
+    public function hasPlugin(string $fqcn): bool;
+
+    /**
+     * @return bool
+     */
+    public function hasCache(): bool;
 }
