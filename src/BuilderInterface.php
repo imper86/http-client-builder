@@ -9,8 +9,8 @@
 namespace Imper86\HttpClientBuilder;
 
 use Http\Client\Common\Plugin;
-use Http\Client\HttpClient;
 use Psr\Cache\CacheItemPoolInterface;
+use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Http\Message\UriFactoryInterface;
@@ -24,16 +24,16 @@ interface BuilderInterface
     /**
      * Returns fully prepared http client
      *
-     * @return HttpClient
+     * @return ClientInterface
      */
-    public function getHttpClient(): HttpClient;
+    public function getHttpClient(): ClientInterface;
 
     /**
      * Changes current http client
      *
-     * @param HttpClient $httpClient
+     * @param ClientInterface $httpClient
      */
-    public function setHttpClient(HttpClient $httpClient): void;
+    public function setHttpClient(ClientInterface $httpClient): void;
 
     /**
      * @return RequestFactoryInterface

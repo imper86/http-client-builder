@@ -11,10 +11,10 @@ namespace Imper86\HttpClientBuilder;
 use Http\Client\Common\Plugin;
 use Http\Client\Common\Plugin\Cache\Generator\HeaderCacheKeyGenerator;
 use Http\Client\Common\PluginClientFactory;
-use Http\Client\HttpClient;
-use Http\Discovery\HttpClientDiscovery;
+use Http\Discovery\Psr18ClientDiscovery;
 use Http\Discovery\Psr17FactoryDiscovery;
 use Psr\Cache\CacheItemPoolInterface;
+use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Http\Message\UriFactoryInterface;
@@ -22,11 +22,11 @@ use Psr\Http\Message\UriFactoryInterface;
 class Builder implements BuilderInterface
 {
     /**
-     * @var HttpClient
+     * @var ClientInterface
      */
     private $httpClient;
     /**
-     * @var HttpClient|null
+     * @var ClientInterface|null
      */
     private $pluginClient;
     /**
@@ -55,19 +55,19 @@ class Builder implements BuilderInterface
     private $cachePlugin;
 
     public function __construct(
-        ?HttpClient $httpClient = null,
+        ?ClientInterface $httpClient = null,
         ?RequestFactoryInterface $requestFactory = null,
         ?StreamFactoryInterface $streamFactory = null,
         ?UriFactoryInterface $uriFactory = null
     )
     {
-        $this->httpClient = $httpClient ?: HttpClientDiscovery::find();
+        $this->httpClient = $httpClient ?: Psr18ClientDiscovery::find();
         $this->requestFactory = $requestFactory ?: Psr17FactoryDiscovery::findRequestFactory();
         $this->streamFactory = $streamFactory ?: Psr17FactoryDiscovery::findStreamFactory();
-        $this->uriFactory = $uriFactory ?: Psr17FactoryDiscovery::findUrlFactory();
+        $this->uriFactory = $uriFactory ?: Psr17FactoryDiscovery::findUriFactory();
     }
 
-    public function getHttpClient(): HttpClient
+    public function getHttpClient(): ClientInterface
     {
         if ($this->httpClientModified) {
             $this->httpClientModified = false;
@@ -84,7 +84,7 @@ class Builder implements BuilderInterface
         return $this->pluginClient;
     }
 
-    public function setHttpClient(HttpClient $httpClient): void
+    public function setHttpClient(ClientInterface $httpClient): void
     {
         $this->httpClient = $httpClient;
         $this->httpClientModified = true;
