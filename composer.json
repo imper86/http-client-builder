@@ -15,7 +15,8 @@
         "psr/http-factory": "^1.0",
         "php-http/discovery": "^1.7",
         "php-http/httplug": "^2.0",
-        "imper86/php-http-cache-plugin": "^2.0"
+        "php-http/client-common": "^2.3",
+        "php-http/cache-plugin": "^2.0"
     },
     "autoload": {
         "psr-4": {
